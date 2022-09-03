@@ -26,12 +26,11 @@ const displayNews = async id =>{
     // console.log(res);
     const data = await res.json();
     console.log(data.data);
-    // console.log((data.data.news_category[0].category_id)
+
     const newArr = [];
     const newsContainer = document.getElementById('news-container');
     newsContainer.innerHTML = ' ';
     data.data.forEach(singleNews=>{
-     
         const categoryNewsDiv = document.createElement('div');
         categoryNewsDiv.classList.add('col');
         categoryNewsDiv.innerHTML = `
@@ -40,11 +39,11 @@ const displayNews = async id =>{
             <div class="card-body">
                 <h5 class="card-title">${singleNews.title}</h5>
                 <p class="card-text">${singleNews.details.slice(0, 250)}</p>
-                <div class="d-flex, "> 
-                    <img src="${singleNews.author.img ? singleNews.author.img : 'n/a'}" alt="" style = "height:100px; width:100px; border-radius:50px">
+                <div class="d-flex justify-content-evenly align-items-center"> 
+                    <img src="${singleNews.author.img ? singleNews.author.img : 'author image not found'}" alt="" style = "height:0px; width:50px; border-radius:50px">
                     <p class="inline">${singleNews.author.name ? singleNews.author.name : 'n/a'}</p>
-                    <p class="inline">${singleNews.total_view ? singleNews.total_view : 'n/a'}</p>
-                    <button class="btn btn-primary">click</button>
+                    <p class="inline">Total view : ${singleNews.total_view ? singleNews.total_view : 'n/a'}</p>
+                    <button onclick=${singleNews._} class='btn p-0 m-0'>see more..</button>
                 </div>
             </div>
         </div>
@@ -54,8 +53,20 @@ const displayNews = async id =>{
         newArr.push(totalNews) ;   
     }) 
     const inputField = document.getElementById('show-number');
-    inputField.value = newArr.length + ' found for this category ';
-        
+    inputField.value = newArr.length + ' found for this category ';      
 }
+
+const loadNewsDetails = async(_id) =>{
+    const url = `https://openapi.programming-hero.com/api/news/${_id}`;
+    const res = await fetch(url);
+    // console.log(res);
+    const data = await res.json();
+    console.log(data.data);
+}
+
+const displayPhoneDetails = news =>{
+    console.log(news)
+}
+
 
 loadData();
