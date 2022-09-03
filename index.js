@@ -25,7 +25,7 @@ const displayNews = async id =>{
     const res = await fetch(url);
     // console.log(res);
     const data = await res.json();
-    console.log(data.data);
+    // console.log(data.data);
 
     const newArr = [];
     const newsContainer = document.getElementById('news-container');
@@ -43,7 +43,7 @@ const displayNews = async id =>{
                     <img src="${singleNews.author.img ? singleNews.author.img : 'author image not found'}" alt="" style = "height:0px; width:50px; border-radius:50px">
                     <p class="inline">${singleNews.author.name ? singleNews.author.name : 'n/a'}</p>
                     <p class="inline">Total view : ${singleNews.total_view ? singleNews.total_view : 'n/a'}</p>
-                    <button onclick=${singleNews._} class='btn p-0 m-0'>see more..</button>
+                    <button onclick= 'loadNewsDetails("${singleNews._id}")' class='btn p-0 m-0'>see more..</button>
                 </div>
             </div>
         </div>
@@ -61,11 +61,21 @@ const loadNewsDetails = async(_id) =>{
     const res = await fetch(url);
     // console.log(res);
     const data = await res.json();
-    console.log(data.data);
+    displayNewsDetails(data.data);
 }
 
-const displayPhoneDetails = news =>{
-    console.log(news)
+const displayNewsDetails = news =>{
+    console.log(news);
+    const modalTitle = document.getElementById('newsDetailModalLabel');
+    modalTitle.innerText = news.title;
+    const newsDetails = document.getElementById('news-details');
+    newsDetails.innerHTML = `
+     <img src="${news.thumbnail_url}" alt="">
+     <p>Release Date: ${'phone has no release date'} </p>
+     <p>storage: ${ 'not found'} </p>
+     <p>Others:  ${'no bluetooth found'}</p>
+    
+    `;
 }
 
 
