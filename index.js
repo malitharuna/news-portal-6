@@ -27,10 +27,11 @@ const displayNews = async id =>{
     const data = await res.json();
     console.log(data.data);
     // console.log((data.data.news_category[0].category_id)
-
+    const newArr = [];
+    const newsContainer = document.getElementById('news-container');
+    newsContainer.innerHTML = ' ';
     data.data.forEach(singleNews=>{
-        const newsContainer = document.getElementById('news-container');
-        
+     
         const categoryNewsDiv = document.createElement('div');
         categoryNewsDiv.classList.add('col');
         categoryNewsDiv.innerHTML = `
@@ -38,13 +39,23 @@ const displayNews = async id =>{
             <img src="${singleNews.image_url}" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">${singleNews.title}</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text">${singleNews.details.slice(0, 250)}</p>
+                <div class="d-flex, "> 
+                    <img src="${singleNews.author.img ? singleNews.author.img : 'n/a'}" alt="" style = "height:100px; width:100px; border-radius:50px">
+                    <p class="inline">${singleNews.author.name ? singleNews.author.name : 'n/a'}</p>
+                    <p class="inline">${singleNews.total_view ? singleNews.total_view : 'n/a'}</p>
+                    <button class="btn btn-primary">click</button>
+                </div>
             </div>
         </div>
         `;
-        newsContainer.appendChild(categoryNewsDiv);
-        
+        const totalNews = newsContainer.appendChild(categoryNewsDiv); 
+         
+        newArr.push(totalNews) ;   
     }) 
+    const inputField = document.getElementById('show-number');
+    inputField.value = newArr.length + ' found for this category ';
+        
 }
 
 loadData();
