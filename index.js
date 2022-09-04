@@ -19,7 +19,7 @@ const displayMenu = menus =>{
     })
 };
 
-
+// category news divv -----------------
 const displayNews = async id =>{
     toggleSpinner(true);
     const url = `https://openapi.programming-hero.com/api/news/category/${id}`
@@ -58,6 +58,7 @@ const displayNews = async id =>{
     inputField.value = newArr.length + ' found for this category ';      
 }
 
+// loader / spinner --------------
 const toggleSpinner = isLoading =>{
     const loaderSection = document.getElementById('loader');
     if(isLoading){
@@ -91,6 +92,5 @@ const displayNewsDetails = news =>{
     })
    
 }
-
 
 loadData();
