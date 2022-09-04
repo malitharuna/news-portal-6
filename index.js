@@ -28,18 +28,9 @@ const displayNews = async id =>{
     const data = await res.json();
     // console.log(data.data);
 
-    data.data.sort((a, b) => {
-        const sortByView = b.total_view- a.total_view;
-        return sortByView;
-        });
-    
-        const getSortValue = sortByView;
-    // const sortByView = data.data.sort(a, b);
-    // console.log(sortByView)
-    // // console.log(`${data.data.total_view}` );
-
-    const sortByField = document.getElementById('sortByValue');
-    sortByField.value = ;
+    data.data.sort((a, b) =>  b.total_view- a.total_view)
+       
+        // console.log(data.data)
 
     const newArr = [];
     const newsContainer = document.getElementById('news-container');
