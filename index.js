@@ -1,8 +1,13 @@
 const loadData = async() =>{
     const url = `https://openapi.programming-hero.com/api/news/categories`
-    const res = await fetch(url);
-    const data = await res.json();
-    displayMenu(data.data.news_category);
+    try{
+        const res = await fetch(url);
+        const data = await res.json();
+        displayMenu(data.data.news_category);
+    }
+    catch(error){
+        alert('data is not available')
+    }
 }
 
 const displayMenu = menus =>{
@@ -23,12 +28,17 @@ const displayMenu = menus =>{
 const displayNews = async id =>{
     toggleSpinner(true);
     const url = `https://openapi.programming-hero.com/api/news/category/${id}`
-    const res = await fetch(url);
-    // console.log(res);
-    const data = await res.json();
-    // console.log(data.data);
+    try{
+        const res = await fetch(url);
+         // console.log(res);
+        const data = await res.json();
+        // console.log(data.data);
+    }catch(error){
+        alert('data is not available')
+    }
 
-    data.data.sort((a, b) =>  b.total_view- a.total_view)
+
+    data.data.sort((a, b) =>  b.total_view - a.total_view)
        
         // console.log(data.data)
 
@@ -46,7 +56,7 @@ const displayNews = async id =>{
                 <p class="card-text">${singleNews.details.slice(0, 250)}</p>
                 <div class="d-flex justify-content-evenly align-items-center"> 
                     <img src="${singleNews.author.img? singleNews.author.img : 'author image not found' }" alt="" style = "height:50px; width:50px; border-radius:50px">
-                    <p >${singleNews.author.name ? singleNews.author.name : 'n/a'}</p>
+                    <p class="fw-bold">${singleNews.author.name ? singleNews.author.name : 'n/a'}</p>
                    
                    <p ><span class=" d-flex flex-row" > <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-2 h-2 ">
                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
@@ -81,10 +91,14 @@ const toggleSpinner = isLoading =>{
 
 const loadNewsDetails = async(_id) =>{
     const url = `https://openapi.programming-hero.com/api/news/${_id}`;
-    const res = await fetch(url);
-    // console.log(res);
-    const data = await res.json();
-    displayNewsDetails(data.data);
+    try{
+        const res = await fetch(url);
+        // console.log(res);
+        const data = await res.json();
+        displayNewsDetails(data.data);
+    }catch(error){
+        alert('data is not available')
+    }
 }
 
 const displayNewsDetails = news =>{
