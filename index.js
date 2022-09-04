@@ -37,10 +37,9 @@ const displayNews = async id =>{
         alert('data is not available')
     }
 
-
+    //  ------sort by section --------
     data.data.sort((a, b) =>  b.total_view - a.total_view)
        
-        // console.log(data.data)
 
     const newArr = [];
     const newsContainer = document.getElementById('news-container');
@@ -109,8 +108,8 @@ const displayNewsDetails = news =>{
         const newsDetails = document.getElementById('news-details');
         newsDetails.innerHTML = `
          <img src="${detailNews.image_url ? detailNews.image_url:' n/a' }" alt="" class="img-fluid">
-         <p>Rating: ${detailNews.rating.number} </p>
-         <p>Publish Date: ${detailNews.author.published_date} </p>
+         <p>Rating: ${detailNews.rating ? detailNews.rating.number: 'n/a'} </p>
+         <p>Publish Date: ${detailNews.author ? detailNews.author .published_date : 'n/a'} </p>
          <p class="card-text">${detailNews.details}</p>
         `;
     })  
