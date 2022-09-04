@@ -1,13 +1,9 @@
 const loadData = async() =>{
     const url = `https://openapi.programming-hero.com/api/news/categories`
-    try{
+    
         const res = await fetch(url);
         const data = await res.json();
-        displayMenu(data.data.news_category);
-    }
-    catch(error){
-        alert('data is not available')
-    }
+        displayMenu(data.data.news_category); 
 }
 
 const displayMenu = menus =>{
@@ -28,18 +24,16 @@ const displayMenu = menus =>{
 const displayNews = async id =>{
     toggleSpinner(true);
     const url = `https://openapi.programming-hero.com/api/news/category/${id}`
-    try{
+    
         const res = await fetch(url);
          // console.log(res);
         const data = await res.json();
         // console.log(data.data);
-    }catch(error){
-        alert('data is not available')
-    }
 
-    //  ------sort by section --------
+
     data.data.sort((a, b) =>  b.total_view - a.total_view)
        
+        // console.log(data.data)
 
     const newArr = [];
     const newsContainer = document.getElementById('news-container');
@@ -90,14 +84,11 @@ const toggleSpinner = isLoading =>{
 
 const loadNewsDetails = async(_id) =>{
     const url = `https://openapi.programming-hero.com/api/news/${_id}`;
-    try{
+   
         const res = await fetch(url);
         // console.log(res);
         const data = await res.json();
         displayNewsDetails(data.data);
-    }catch(error){
-        alert('data is not available')
-    }
 }
 
 const displayNewsDetails = news =>{
@@ -108,8 +99,8 @@ const displayNewsDetails = news =>{
         const newsDetails = document.getElementById('news-details');
         newsDetails.innerHTML = `
          <img src="${detailNews.image_url ? detailNews.image_url:' n/a' }" alt="" class="img-fluid">
-         <p>Rating: ${detailNews.rating ? detailNews.rating.number: 'n/a'} </p>
-         <p>Publish Date: ${detailNews.author ? detailNews.author .published_date : 'n/a'} </p>
+         <p>Rating: ${detailNews.rating.number} </p>
+         <p>Publish Date: ${detailNews.author.published_date} </p>
          <p class="card-text">${detailNews.details}</p>
         `;
     })  
