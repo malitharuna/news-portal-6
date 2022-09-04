@@ -26,7 +26,15 @@ const displayNews = async id =>{
     const res = await fetch(url);
     // console.log(res);
     const data = await res.json();
-    // console.log(data.data);
+    console.log(data.data);
+
+    data.data.sort((a, b) => {
+        return b.total_view- a.total_view;
+        });
+    
+
+
+    console.log(`${data.data.total_view}` );
 
     const newArr = [];
     const newsContainer = document.getElementById('news-container');
@@ -42,9 +50,15 @@ const displayNews = async id =>{
                 <p class="card-text">${singleNews.details.slice(0, 250)}</p>
                 <div class="d-flex justify-content-evenly align-items-center"> 
                     <img src="${singleNews.author.img? singleNews.author.img : 'author image not found' }" alt="" style = "height:50px; width:50px; border-radius:50px">
-                    <p class="inline">${singleNews.author.name ? singleNews.author.name : 'n/a'}</p>
-                    <p class="inline">Total view : ${singleNews.total_view ? singleNews.total_view : 'n/a'}</p>
-                    <button onclick= 'loadNewsDetails("${singleNews._id}")' class='btn p-0 m-0'>see more..</button>
+                    <p >${singleNews.author.name ? singleNews.author.name : 'n/a'}</p>
+                   
+                   <p ><span class=" d-flex flex-row" > <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" w-2 h-2 ">
+                   <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </span> 
+                    <span class=" d-flex flex-row">${singleNews.total_view ? singleNews.total_view : 'n/a'} </span> </p>              
+                    
+                    <button onclick='loadNewsDetails("${singleNews._id}")' class="btn btn-primary p-1 m-0" data-bs-toggle="modal" data-bs-target="#newsDetailModal">see more..</button>
                 </div>
             </div>
         </div>
@@ -84,13 +98,12 @@ const displayNewsDetails = news =>{
         modalTitle.innerText = detailNews.title;
         const newsDetails = document.getElementById('news-details');
         newsDetails.innerHTML = `
-         <img src="${detailNews.thumbnail_url ? detailNews.thumbnail_url:' n/a' }" alt="" class="img-fluid">
+         <img src="${detailNews.image_url ? detailNews.image_url:' n/a' }" alt="" class="img-fluid">
          <p>Rating: ${detailNews.rating.number} </p>
          <p>Publish Date: ${detailNews.author.published_date} </p>
-         <p class="card-text">${detailNews.details.slice(0, 180)}</p>
+         <p class="card-text">${detailNews.details}</p>
         `;
-    })
-   
+    })  
 }
 
 loadData();
